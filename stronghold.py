@@ -35,5 +35,15 @@ def Rabbits_and_Recurrence_Relations(n: int, k: int):
 
 def GC_Content(x: str):
     x = x.replace(' ', '')
-    cg = x.count('C')+x.count('G')
-    return (cg/len(x))*100
+    cg = x.count('C') + x.count('G')
+    return (cg / len(x)) * 100
+
+
+def Counting_Point_Mutations(x: str, y: str):
+    dh = 0
+    x = x.replace(' ', '')
+    y = y.replace(' ', '')
+    for i, j in zip(x, y):
+        if i != j:
+            dh += 1
+    return dh
