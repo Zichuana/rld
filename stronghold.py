@@ -21,3 +21,19 @@ def Complementing_a_Strand_of_DNA(x: str):
     x = x.replace('E', 'G')
     x = x.replace('R', 'A')
     return x
+
+
+def Rabbits_and_Recurrence_Relations(n: int, k: int):
+    rabbit = [0] * 50
+    rabbit[0] = 1
+    rabbit[1] = 1
+    if n > 2:
+        for i in range(2, n):
+            rabbit[i] = rabbit[i - 1] + rabbit[i - 2] * k
+    return rabbit[n - 1]
+
+
+def GC_Content(x: str):
+    x = x.replace(' ', '')
+    cg = x.count('C')+x.count('G')
+    return (cg/len(x))*100
