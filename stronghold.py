@@ -1,3 +1,5 @@
+import numpy as np
+
 rna_code = {'UUU': 'F', 'UUC': 'F',
             'UUA': 'L', 'UUG': 'L', 'CUU': 'L', 'CUC': 'L', 'CUA': 'L', 'CUG': 'L',
             'AUU': 'I', 'AUC': 'I', 'AUA': 'I',
@@ -90,3 +92,33 @@ def Finding_a_Motif_in_DNA(s: str, t: str):
         if mid == t:
             res.append(i)
     return res
+
+
+def Consensus_and_Profile(s):
+    res = {'A': [], 'C': [], 'G': [], 'T': []}
+    s = np.matrix(s)
+    trans = np.transpose(s)
+    s = trans.tolist()
+    max_s = ''
+    acgt = ['A', 'C', 'G', 'T']
+    for mid in s:
+        if mid.count('A') != 0:
+            res['A'].append(mid.count('A'))
+        else:
+            res['A'].append(0)
+        if mid.count('C') != 0:
+            res['C'].append(mid.count('C'))
+        else:
+            res['C'].append(0)
+        if mid.count('G') != 0:
+            res['G'].append(mid.count('G'))
+        else:
+            res['G'].append(0)
+        if mid.count('T') != 0:
+            res['T'].append(mid.count('T'))
+        else:
+            res['T'].append(0)
+    for mid_list in list(zip(res['A'], res['C'], res['G'], res['T'])):
+        max_s += acgt[mid_list.index(max(mid_list))]
+    return res, max_s
+
