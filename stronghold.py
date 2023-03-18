@@ -136,6 +136,15 @@ def Mortal_Fibonacci_Rabbits(n: int, m: int):
             mid += rabbits[j]
         rabbits[i] = mid
     print(rabbits)
-    return rabbits[n-1]
+    return rabbits[n - 1]
 
 
+def RNA_Splicing(s: str):
+    s = s.replace('T', 'U')
+    ls = len(s)
+    pro = ''
+    for i in range(0, ls, 3):
+        mid = ''
+        mid += s[i] + s[i + 1] + s[i + 2]
+        pro += rna_code[mid]
+    return pro
