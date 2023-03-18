@@ -122,3 +122,20 @@ def Consensus_and_Profile(s):
         max_s += acgt[mid_list.index(max(mid_list))]
     return res, max_s
 
+
+def Mortal_Fibonacci_Rabbits(n: int, m: int):
+    rabbits = [0] * 150
+    rabbits[0] = 1
+    rabbits[1] = 1
+    rabbits[2] = 1
+    for i in range(2, m):
+        rabbits[i] = rabbits[i - 1] + rabbits[i - 2]
+    for i in range(m, n + 1):
+        mid = 0
+        for j in range(i - m, i - 1):
+            mid += rabbits[j]
+        rabbits[i] = mid
+    print(rabbits)
+    return rabbits[n-1]
+
+
