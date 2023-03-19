@@ -1,4 +1,5 @@
 import numpy as np
+import re
 
 rna_code = {'UUU': 'F', 'UUC': 'F',
             'UUA': 'L', 'UUG': 'L', 'CUU': 'L', 'CUC': 'L', 'CUA': 'L', 'CUG': 'L',
@@ -148,3 +149,54 @@ def RNA_Splicing(s: str):
         mid += s[i] + s[i + 1] + s[i + 2]
         pro += rna_code[mid]
     return pro
+
+
+def sub_str(input_string):
+    length = len(input_string)
+    return [input_string[i:j + 1] for i in range(length) for j in range(i, length)]
+
+
+def common_str(str1, str2):
+    ls = sub_str(str1)
+    print(ls)
+    target = []
+    for i in ls:
+        if str2.find(i) != -1:
+            target.append(i)
+    return target
+
+
+def Finding_a_Shared_Motif(s):
+    mid = common_str(s[1], s[0])
+    print(mid)
+    mid = set(mid)
+    mid = list(mid)
+    print(mid)
+    for dna in s[2:]:
+        new_mid = []
+        for i in mid:
+            if dna.find(i) != -1:
+                new_mid.append(i)
+        mid = new_mid
+    res = ''
+    for i in mid:
+        if len(i) > len(res):
+            res = i
+    print(mid)
+    return res
+
+
+def read_txt(path):
+    with open(path, "r") as f:
+        data = f.readlines()
+    dna_list = []
+    mid = ''
+    for i in data:
+        if i[0] == '>':
+            dna_list.append(mid)
+            mid = ''
+        else:
+            mid += i[:-1]
+    return dna_list[1:]
+
+
