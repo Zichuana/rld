@@ -22,7 +22,7 @@ rna_code = {'UUU': 'F', 'UUC': 'F',
             'CGU': 'R', 'CGC': 'R', 'CGA': 'R', 'CGG': 'R', 'AGA': 'R', 'AGG': 'R',
             'AGU': 'S', 'AGC': 'S',
             'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
-            'UAA': '', 'UAG': '', 'UGA': ''}
+            'UAA': ' ', 'UAG': ' ', 'UGA': ' '}
 
 
 def Counting_DNA_Nucleotides(x: str):
@@ -199,4 +199,57 @@ def read_txt(path):
             mid += i[:-1]
     return dna_list[1:]
 
+
+def RNA_proList(rna: str):
+    ls = len(rna)
+    pro_list = []
+    pro = ''
+    for i in range(0, ls, 3):
+        mid = ''
+        mid += rna[i] + rna[i + 1] + rna[i + 2]
+        if rna_code[mid] == ' ':
+            pro_list.append(pro)
+            pro = ''
+            continue
+        pro += rna_code[mid]
+    pro = ''
+    for i in range(1, ls - 2, 3):
+        mid = ''
+        mid += rna[i] + rna[i + 1] + rna[i + 2]
+        if rna_code[mid] == ' ':
+            pro_list.append(pro)
+            pro = ''
+            continue
+        pro += rna_code[mid]
+    pro = ''
+    for i in range(2, ls - 1, 3):
+        mid = ''
+        mid += rna[i] + rna[i + 1] + rna[i + 2]
+        if rna_code[mid] == ' ':
+            pro_list.append(pro)
+            pro = ''
+            continue
+        pro += rna_code[mid]
+    return pro_list
+
+
+def Open_Reading_Frames(dna: str):
+    dna_s = Complementing_a_Strand_of_DNA(dna)
+    rna = dna.replace('T', 'U')
+    rna_s = dna_s.replace('T', 'U')
+    prolist = RNA_proList(rna)
+    prolist += RNA_proList(rna_s)
+    res = []
+    for pro in prolist:
+        i = pro.find('M')
+        if i != -1:
+            res.append(pro[i:])
+        while True:
+            i = pro.find('M', i + 1)
+            if i == -1:
+                break
+            res.append(pro[i:])
+    res = set(res)
+    res = list(res)
+    return res
 
