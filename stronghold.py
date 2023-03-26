@@ -1,5 +1,6 @@
 import numpy as np
 import re
+from itertools import combinations, permutations
 
 rna_code = {'UUU': 'F', 'UUC': 'F',
             'UUA': 'L', 'UUG': 'L', 'CUU': 'L', 'CUC': 'L', 'CUA': 'L', 'CUG': 'L',
@@ -253,3 +254,29 @@ def Open_Reading_Frames(dna: str):
     res = list(res)
     return res
 
+
+def cut(s: str):
+    results = []
+    for x in range(len(s)):
+        for i in range(len(s) - x):
+            results.append(s[i:i + x + 1])
+    return results
+
+
+def Locating_Restriction_Sites(dna: str):
+    inp = cut(dna)
+    inp = set(inp)
+    inp = list(inp)
+    res = []
+    for s in inp:
+        if len(s) > 3 and len(s) < 13:
+            rs = Complementing_a_Strand_of_DNA(s)
+            if rs == s:
+                pos = -1
+                while True:
+                    pos = dna.find(s, pos + 1)
+                    if pos != -1:
+                        res.append([pos + 1, len(s)])
+                    else:
+                        break
+    return res
