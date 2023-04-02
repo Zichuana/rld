@@ -25,6 +25,29 @@ rna_code = {'UUU': 'F', 'UUC': 'F',
             'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
             'UAA': ' ', 'UAG': ' ', 'UGA': ' '}
 
+pro_code = {
+    'F': ['UUU', 'UUC'],
+    'L': ['UUA', 'UUG', 'CUU', 'CUC', 'CUA', 'CUG'],
+    'I': ['AUU', 'AUC', 'AUA'],
+    'M': ['AUG'],
+    'V': ['GUU', 'GUC', 'GUA', 'GUG'],
+    'S': ['UCU', 'UCC', 'UCA', 'UCG', 'AGU', 'AGC'],
+    'P': ['CCU', 'CCC', 'CCA', 'CCG'],
+    'T': ['ACU', 'ACC', 'ACA', 'ACG'],
+    'A': ['GCU', 'GCC', 'GCA', 'GCG'],
+    'Y': ['UAU', 'UAC'],
+    'H': ['CAU', 'CAC'],
+    'Q': ['CAA', 'CAG'],
+    'N': ['AAU', 'AAC'],
+    'K': ['AAA', 'AAG'],
+    'D': ['GAU', 'GAC'],
+    'E': ['GAA', 'GAG'],
+    'C': ['UGU', 'UGC'],
+    'W': ['UGG'],
+    'R': ['CGU', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'],
+    'G': ['GGU', 'GGC', 'GGA', 'GGG'],
+    ' ': ['UAA', 'UAG', 'UGA']}
+
 
 def Counting_DNA_Nucleotides(x: str):
     A = x.count('A')
@@ -279,4 +302,12 @@ def Locating_Restriction_Sites(dna: str):
                         res.append([pos + 1, len(s)])
                     else:
                         break
+    return res
+
+
+def Inferring_mRNA_from_Protein(pro: str):
+    pro += ' '
+    res = 1
+    for mrna in pro:
+        res *= len(pro_code[mrna])
     return res
