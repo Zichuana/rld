@@ -311,3 +311,17 @@ def Inferring_mRNA_from_Protein(pro: str):
     for mrna in pro:
         res *= len(pro_code[mrna])
     return res
+
+
+def Finding_a_Spliced_Motif(dna: str, s: str):
+    len_dna = len(dna)
+    len_s = len(s)
+    j = 0
+    res = []
+    for i in range(len_dna):
+        if j == len_s:
+            break
+        if dna[i] == s[j]:
+            j += 1
+            res.append(i + 1)
+    return res
