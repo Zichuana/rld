@@ -325,3 +325,13 @@ def Finding_a_Spliced_Motif(dna: str, s: str):
             j += 1
             res.append(i + 1)
     return res
+
+
+def Enumerating_Gene_Orders(n: int):
+    nums = []
+    for i in range(n):
+        nums.append(i+1)
+    result = []
+    for mid in permutations(nums, len(nums)):
+        result.append(list(mid))
+    return result
