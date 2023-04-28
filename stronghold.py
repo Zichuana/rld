@@ -330,8 +330,49 @@ def Finding_a_Spliced_Motif(dna: str, s: str):
 def Enumerating_Gene_Orders(n: int):
     nums = []
     for i in range(n):
-        nums.append(i+1)
+        nums.append(i + 1)
     result = []
     for mid in permutations(nums, len(nums)):
         result.append(list(mid))
     return result
+
+
+def read_txt_2(path):
+    a = ""
+    b = ""
+    with open(path, "r") as f:
+        data = f.readlines()
+    rosa_list = {}
+    a = data[0][1:-1]
+    for i in data[1:]:
+        if i[0] != '>':
+            b += i[:-1]
+        else:
+            rosa_list[a] = b
+            b = ""
+            a = i[1:-1]
+    rosa_list[a] = b
+    return rosa_list
+
+
+def Overlap_Graphs(rosa_list):
+    res = []
+    for i in rosa_list:
+        mid = rosa_list[i]
+        for j in rosa_list:
+            if rosa_list[j] == mid:
+                continue
+            if mid[-3:] == rosa_list[j][0:3]:
+                res.append((i, j))
+    # lth = len(res)
+    # iex = []
+    # result = []
+    # for i in range(lth):
+    #     for j in range(i+1, lth):
+    #         if res[i][0] == res[j][1] and res[i][1] == res[j][0]:
+    #             iex.append(j)
+    # print(iex)
+    # for i in range(lth):
+    #     if i not in iex:
+    #         result.append(res[i])
+    return res
